@@ -19,7 +19,7 @@ def get_date():
 
 def request_capi(api_key,currency1,currency2,base_currency):
 
-    url_currency = 'https://api.freecurrencyapi.com/v1/latest?apikey='+api_key+'&currencies='+currency1+'%2C'+currency2+'&base_currency='+base_currency'
+    url_currency = 'https://api.freecurrencyapi.com/v1/latest?apikey='+api_key+'&currencies='+currency1+'%2C'+currency2+'&base_currency='+base_currency
 
     try :
         response = requests.get(url_currency).json()
