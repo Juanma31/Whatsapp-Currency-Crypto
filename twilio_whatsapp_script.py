@@ -18,7 +18,7 @@ import pandas as pd
 import requests
 from tqdm import tqdm
 from datetime import date
-from utils import request_capi,get_forecast,create_df,send_message,get_date
+from utils import request_capi,get_currency,send_message,get_date
 
 
 
