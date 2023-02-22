@@ -1,7 +1,7 @@
 
 import pandas as pd
 from twilio.rest import Client
-from twilio_config import TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,PHONE_NUMBER,API_KEY_WAPI
+from twilio_Configg import TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,WHATSAPP_NUMBER,API_KEY_CURR
 from datetime import datetime
 import requests
 from requests import Request, Session
@@ -17,41 +17,24 @@ def get_date():
 
     return input_date
 
-def request_wapi(api_key,query):
+def request_capi(api_key,currency1,currency2,base_currency):
 
-    url_clima = 'http://api.weatherapi.com/v1/forecast.json?key='+api_key+'&q='+query+'&days=1&aqi=no&alerts=no'
+    url_currency = 'https://api.freecurrencyapi.com/v1/latest?apikey='+api_key+'&currencies='+currency1+'%2C'+currency2+'&base_currency='+base_currency'
 
     try :
-        response = requests.get(url_clima).json()
+        response = requests.get(url_currency).json()
     except Exception as e:
         print(e)
 
     return response
 
-def get_forecast(response,i):
+def get_currency(response):
+    currency_eur=response['data']['EUR']
+    currency_usd=response['data']['USD']
+    
+    return currency_eur,currency_usd
 
-    fecha = response['forecast']['forecastday'][0]['hour'][i]['time'].split()[0]
-    hora = int(response['forecast']['forecastday'][0]['hour'][i]['time'].split()[1].split(':')[0])
-    condicion = response['forecast']['forecastday'][0]['hour'][i]['condition']['text']
-    tempe = response['forecast']['forecastday'][0]['hour'][i]['temp_c']
-    rain = response['forecast']['forecastday'][0]['hour'][i]['will_it_rain']
-    prob_rain = response['forecast']['forecastday'][0]['hour'][i]['chance_of_rain']
-
-    return fecha,hora,condicion,tempe,rain,prob_rain
-
-def create_df(data):
-
-    col = ['Fecha','Hora','Condicion','Temperatura','Lluvia','prob_lluvia']
-    df = pd.DataFrame(data,columns=col)
-    df = df.sort_values(by = 'Hora',ascending = True)
-
-    df_rain = df[(df['Lluvia']==1) & (df['Hora']>6) & (df['Hora']< 22)]
-    df_rain = df_rain[['Hora','Condicion']]
-    df_rain.set_index('Hora', inplace = True)
-
-    return df_rain
-
-def send_message(TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,input_date,df,query):
+def send_message(TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,input_date,query):
 
     account_sid = TWILIO_ACCOUNT_SID
     auth_token = TWILIO_AUTH_TOKEN
@@ -60,9 +43,9 @@ def send_message(TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,input_date,df,query):
 
     message = client.messages \
                     .create(
-                        body='\nHola! \n\n\n El pronostico de lluvia hoy '+ input_date +' en ' + query +' es : \n\n\n ' + str(df),
-                        from_=PHONE_NUMBER,
-                        to='+573222007879'
+                        body='\nHello! \n\n\n Today, '+input_date+', the GBP is equal to '+ str(query[0]) + ' EUR and '+ str(query[1])+' AUD',
+                        from_=WHATSAPP_NUMBER,
+                        to='whatsapp:+447568279452'
                     )
 
     return message.sid
