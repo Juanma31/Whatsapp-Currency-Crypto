@@ -57,7 +57,6 @@ def request_crypapi(api_crypto):
       print(e)
     
 def get_cryptos(data,i):
-    #name=data['data'][i]['name']
     symbol=data['data'][i]['symbol']
     price=data['data'][i]['quote']['USD']['price']
     rank=data['data'][i]['cmc_rank']
