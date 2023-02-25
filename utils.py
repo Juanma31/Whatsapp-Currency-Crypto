@@ -78,7 +78,7 @@ def send_message(TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,input_date,query,df):
 
     message = client.messages \
                     .create(
-                        body='\nHello! \n\n\n Today, '+input_date+', the GBP is equal to '+ str(query[0]) + ' EUR and '+ str(query[1])+' AUD. And here is the summary of cryptos in USD: \n'+str(df),
+                        body='\nHello! \n\n Today, '+input_date+', the GBP is equal to '+ str(query[0]) + ' EUR and '+ str(query[1])+' AUD. And here is the summary of cryptos in USD: \n\n'+str(df),
                         from_=WHATSAPP_NUMBER,
                         to='whatsapp:+447568279452'
                     )
