@@ -56,10 +56,10 @@ def request_crypapi(api_crypto):
     except (ConnectionError, Timeout, TooManyRedirects) as e:
       print(e)
     
-def get_cryptos(data,i):
-    symbol=data['data'][i]['symbol']
-    price=data['data'][i]['quote']['USD']['price']
-    rank=data['data'][i]['cmc_rank']
+def get_cryptos(datacry,i):
+    symbol=datacry['data'][i]['symbol']
+    price=datacry['data'][i]['quote']['USD']['price']
+    rank=datacry['data'][i]['cmc_rank']
     
     return symbol,price,rank
    
