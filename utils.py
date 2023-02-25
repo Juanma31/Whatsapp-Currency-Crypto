@@ -57,6 +57,8 @@ def request_crypapi(api_crypto):
       print(e)
     
 def get_cryptos(datacry,i):
+    print(API_KEY_CRYP)
+    print(datacry)
     symbol=datacry['data'][i]['symbol']
     price=datacry['data'][i]['quote']['USD']['price']
     rank=datacry['data'][i]['cmc_rank']
