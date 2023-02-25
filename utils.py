@@ -52,13 +52,11 @@ def request_crypapi(api_crypto):
     try:
       response = session.get(url, params=parameters)
       datacry = json.loads(response.text)
-      print(datacry)
     except (ConnectionError, Timeout, TooManyRedirects) as e:
       print(e)
+    return datacry
     
 def get_cryptos(datacry,i):
-    print(API_KEY_CRYP)
-    print(datacry)
     symbol=datacry['data'][i]['symbol']
     price=datacry['data'][i]['quote']['USD']['price']
     rank=datacry['data'][i]['cmc_rank']
