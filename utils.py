@@ -51,8 +51,8 @@ def request_crypapi(api_crypto):
 
     try:
       response = session.get(url, params=parameters)
-      data = json.loads(response.text)
-      print(data)
+      datacry = json.loads(response.text)
+      print(datacry)
     except (ConnectionError, Timeout, TooManyRedirects) as e:
       print(e)
     
