@@ -33,7 +33,7 @@ def get_currency(response):
     
     return currency_eur,currency_usd
 
-def request_crypapi(api_crypto)
+def request_crypapi(api_crypto):
     url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
 
     parameters = {
